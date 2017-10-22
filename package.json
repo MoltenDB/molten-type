@@ -1,0 +1,32 @@
+{
+  "name": "@moltendb/molten-type",
+  "version": "0.1.0",
+  "description": "Specification and tests for MoltenDB types",
+  "main": "index.js",
+  "typings": "typings/type.d.ts",
+  "dependencies": {},
+  "devDependencies": {
+    "jasmine-es6": "^0.4.0",
+    "molten-core": "^0.1.0",
+    "tslint": "^4.4.2",
+    "tslint-eslint-rules": "^3.3.0",
+    "typescript": "^2.1.6"
+  },
+  "scripts": {
+    "dev": "tsc -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MoltenDB/molten-type.git"
+  },
+  "keywords": [
+    "MoltenDB"
+  ],
+  "author": "Jack Farley <bytesnz>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/MoltenDB/molten-type/issues"
+  },
+  "homepage": "https://github.com/MoltenDB/molten-type#readme"
+}
