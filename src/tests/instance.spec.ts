@@ -6,7 +6,7 @@ import * as TypeTest from '../../typings/typeTest';
 
 const createTypeInstanceTests = (createType: Type.createType,
     typeTestOptions: TypeTest.TypeTestOptions) => {
-  describe('Type instance', () => {
+  describe('Type instance', function() {
     const createInstanceTest = (options) => {
       describe(options.label, () => {
         options.validValues.forEach((value) => {
@@ -15,10 +15,15 @@ const createTypeInstanceTests = (createType: Type.createType,
               this.type = createType(createInternalInstance({
                 ...options.storage
               }));
-              let data = {};
-              data[options.fieldName] = value.storedValue;
+              let data;
+              if (typeof value.storedValue === 'object') {
+                data = value.storedValue;
+              } else {
+                data = {};
+                data[options.fieldName] = value.storedValue;
+              }
               this.instance = this.type.instance(options.fieldName,
-                  options.collection, {}, data);
+                  options.collection, null, {}, data);
             });
 
             describe('toString()', () => {

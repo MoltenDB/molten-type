@@ -1,5 +1,7 @@
 import * as MDB from 'molten-core';
 
+export { TypeTestOptions } from './typeTest';
+
 /**
  * An object containing the errors for a form or field
  */
@@ -40,7 +42,8 @@ export interface Type {
    * @returns The type instance
    */
   instance: (name: string, collectionOptions: MDB.CollectionOptions,
-      resultRow: MDB.ResultRow, item: { [field: string]: any }) => ResultTypeInstance;
+      storage: string, resultRow: MDB.ResultRow,
+      item: { [field: string]: any }) => ResultTypeInstance;
 
   /**
    * Validates the given value

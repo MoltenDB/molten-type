@@ -7,20 +7,25 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-var _this = this;
-Object.defineProperty(exports, "__esModule", { value: true });
 var mdbInternalInstance_1 = require("./lib/mdbInternalInstance");
 var createTypeInstanceTests = function (createType, typeTestOptions) {
     describe('Type instance', function () {
+        var _this = this;
         var createInstanceTest = function (options) {
             describe(options.label, function () {
                 options.validValues.forEach(function (value) {
                     describe(value.label, function () {
                         beforeEach(function () {
                             _this.type = createType(mdbInternalInstance_1.default(__assign({}, options.storage)));
-                            var data = {};
-                            data[options.fieldName] = value.storedValue;
-                            _this.instance = _this.type.instance(options.fieldName, options.collection, {}, data);
+                            var data;
+                            if (typeof value.storedValue === 'object') {
+                                data = value.storedValue;
+                            }
+                            else {
+                                data = {};
+                                data[options.fieldName] = value.storedValue;
+                            }
+                            _this.instance = _this.type.instance(options.fieldName, options.collection, null, {}, data);
                         });
                         describe('toString()', function () {
                             it('should return a string representation of the value', function () {
@@ -44,4 +49,5 @@ var createTypeInstanceTests = function (createType, typeTestOptions) {
         });
     });
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = createTypeInstanceTests;

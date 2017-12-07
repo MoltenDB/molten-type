@@ -7,8 +7,6 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-var _this = this;
-Object.defineProperty(exports, "__esModule", { value: true });
 var testers_1 = require("molten-core/dist/spec/helpers/testers");
 var fakeMdbInstance_1 = require("molten-core/dist/spec/helpers/fakeMdbInstance");
 var mdbInternalInstance_1 = require("./lib/mdbInternalInstance");
@@ -28,6 +26,7 @@ var createTypeTests = function (createType, typeTestOptions) {
         });
     });
     describe('MDB instance Type', function () {
+        var _this = this;
         describe('options', function () {
             beforeEach(function () {
                 _this.type = createType(fakeMdbInstance_1.default);
@@ -38,7 +37,6 @@ var createTypeTests = function (createType, typeTestOptions) {
                 }
                 else {
                     expect(_this.type.options).toEqual(jasmine.any(Object));
-                    /// TODO Check Option
                 }
             });
             it('should not contain a option with a reserved name (label, required)', function () {
@@ -73,6 +71,12 @@ var createTypeTests = function (createType, typeTestOptions) {
                                 + '(_[a-zA-Z0-9_]+)?'), 'start with the field name');
                         });
                     });
+                    if (option.schema) {
+                        it('should return the correct schema', function () {
+                            var schema = _this.type.schema(option.fieldName, option.collection);
+                            expect(schema).toEqual(option.schema);
+                        });
+                    }
                 });
                 describe('store()', function () {
                     it('should be a function', function () {
@@ -98,7 +102,7 @@ var createTypeTests = function (createType, typeTestOptions) {
                         expect(_this.type.instance).toEqual(jasmine.any(Function));
                     });
                     it('should return an instance of the type', function () {
-                        var instance = _this.type.instance(option.fieldName, option.collection, option.validValues[0].value);
+                        var instance = _this.type.instance(option.fieldName, option.collection, null, {}, option.validValues[0].value);
                         expect(instance).toEqual(jasmine.any(Object));
                         expect(instance.toString).toEqual(jasmine.any(Function));
                         expect(instance.valueOf).toEqual(jasmine.any(Function));
@@ -139,7 +143,7 @@ var createTypeTests = function (createType, typeTestOptions) {
                         });
                     }
                 });
-                describe('test()', function () {
+                xdescribe('test()', function () {
                     it('should be a function', function () {
                         expect(_this.type.test).toEqual(jasmine.any(Function));
                     });
@@ -163,4 +167,5 @@ var createTypeTests = function (createType, typeTestOptions) {
         typeTestOptions.goodOptions.forEach(testOptionsSet);
     });
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = createTypeTests;

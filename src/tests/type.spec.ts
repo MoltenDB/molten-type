@@ -24,7 +24,7 @@ const createTypeTests = (createType: Type.createType,
     });
   });
 
-  describe('MDB instance Type', () => {
+  describe('MDB instance Type', function() {
     describe('options', () => {
       beforeEach(() => {
         this.type = createType(testMdbInstance);
@@ -81,6 +81,14 @@ const createTypeTests = (createType: Type.createType,
                   + '(_[a-zA-Z0-9_]+)?'), 'start with the field name');
             });
           });
+
+          if (option.schema) {
+            it('should return the correct schema', () => {
+              let schema = this.type.schema(option.fieldName, option.collection);
+
+              expect(schema).toEqual(option.schema);
+            });
+          }
         });
 
         describe('store()', () => {
@@ -111,7 +119,7 @@ const createTypeTests = (createType: Type.createType,
 
           it('should return an instance of the type', () => {
             const instance = this.type.instance(option.fieldName,
-                option.collection, option.validValues[0].value);
+                option.collection, null, {}, option.validValues[0].value);
 
             expect(instance).toEqual(jasmine.any(Object));
             expect(instance.toString).toEqual(jasmine.any(Function));
@@ -158,7 +166,7 @@ const createTypeTests = (createType: Type.createType,
         });
 
 
-        describe('test()', () => {
+        xdescribe('test()', () => {
           it('should be a function', () => {
             expect(this.type.test).toEqual(jasmine.any(Function));
           });
